@@ -1,0 +1,42 @@
+@(requetes: List[Requete], requeteForm: Form[Requete], user:User)
+@import helper._
+
+@main(requetes,user) {
+  
+  
+  
+   <header>
+        <hgroup>
+            <h1>Dashboard</h1>
+        </hgroup>
+    </header>
+  
+    <article  class="tasks">
+       Yours
+                <div class="list " >
+                    @for(requete <- requetes) {
+                     @requete.getCorps 
+                     
+                     @requete.getDate
+                     </br> 
+                 		} 
+                   
+                </div>
+      <div>
+
+    
+    <h2>a new Query</h2>
+    
+    @form(routes.Requetes.newRequetes) {
+        
+        @inputText(requeteForm("Query")) 
+        
+<!--         <Button  type="submit" value="Create"> -->
+                   <button class="newProject" type="submit" >New Query</button>
+       
+    }
+</div>
+    </article>
+
+
+}
