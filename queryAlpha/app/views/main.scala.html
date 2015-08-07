@@ -8,14 +8,23 @@
  <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
        
        
- <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+ <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("dist/css/skins/_all-skins.min.css")">
+    
+   <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("plugins/morris/morris.css")">
+    
+    
+    
+<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
        
 <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-1.7.1.js")"></script>
 
  <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
-
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+   
       </head>
-    <body>
+   <body>
  <header>
             <a href="@routes.Application.index" id="logo"><span>Query</span>List</a>
             <dl id="user">
@@ -29,18 +38,55 @@
         <nav>
             <h4 class="dashboard"><a href="#/">Dashboard</a></h4>
             <ul class="nav nav-pills nav-stacked" >
-          @for(requete <- requetes) {
-	
-		@requete.getCorps
-		
-		 @requete.getDate 
-		} 
-          
+        @requetes.groupBy(_.getUser()).map {
+            case (user, requetes) => {
+                <div class="folder" >
+                    <header>
+                    </header>
+                    <ul class="list">
+                        @requetes.map { requete =>
+                            <li>
+                                <h4>@requete.getDate()</h4>
+                                <h4>@requete.getCorps()</h4>
+                            
+
+                              
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        }
             </ul>
         </nav>
         <section class="container">
         
-            @body
+
+
+ 
+                <div class="col-md-9">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Query
+                            <div class="pull-right">
+                                
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="morris-area-chart"></div>
+                         
+    
+    @body
+                            
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                   
+                   
+                </div>
+             
+
         </section>
         
         

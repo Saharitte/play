@@ -1,42 +1,34 @@
 @(requetes: List[Requete], requeteForm: Form[Requete], user:User)
 @import helper._
 
-@main(requetes,user) {
-  
-  
-  
-   <header>
-        <hgroup>
-            <h1>Dashboard</h1>
-        </hgroup>
-    </header>
-  
-    <article  class="tasks">
-       Yours
-                <div class="list " >
-                    @for(requete <- requetes) {
-                     @requete.getCorps 
-                     
-                     @requete.getDate
-                     </br> 
-                 		} 
-                   
-                </div>
-      <div>
 
     
-    <h2>a new Query</h2>
+
+                         
     
-    @form(routes.Requetes.newRequetes) {
-        
-        @inputText(requeteForm("Query")) 
-        
-<!--         <Button  type="submit" value="Create"> -->
-                   <button class="newProject" type="submit" >New Query</button>
+    @main(requetes,user) {
+  
+  
+
+    
+ @(requeteForm: Form[Requete])
+
+@helper.form(action = routes.Requetes.newRequetes()) {
+    
+  
+   @textarea(field = requeteForm("Query"), args = 'rows -> 10, 'cols -> 50)
+   
+   
+       <button type="submit" type="button" class="btn btn-default" >Add</button>       <button  type="button" class="btn btn-default" name="execute" >Execute</button>
        
-    }
-</div>
-    </article>
-
-
+    
+    
 }
+    
+    
+                            
+                    
+
+}               
+                            
+                        
