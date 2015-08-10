@@ -1,12 +1,12 @@
-@(requetes: List[Requete], requeteForm: Form[Requete], user:User)
+@(requetes: List[Requete], requeteForm: Form[Requete], user:User, bookmarkss:List[BookMarks])
 @import helper._
 
 
     
 
-                         
+                        
     
-    @main(requetes,user) {
+    @main(requetes,user,bookmarkss) {
   
   
 
@@ -19,7 +19,7 @@
    @textarea(field = requeteForm("Query"), args = 'rows -> 10, 'cols -> 50)
    
    
-       <button type="submit" type="button" class="btn btn-default" >Add</button>       <button  type="button" class="btn btn-default" name="execute" >Execute</button>
+       <button type="submit" type="button" class="btn btn-default" >Add</button>       <button   class="btn btn-default" name="execute" >Execute</button>
        
     
     

@@ -16,9 +16,7 @@ public class Application extends Controller {
 
 	  public static Result index() {
     	  return ok(
-    			  views.html.index.render(Requete.all(), requeteForm,  User.findByEmail(request().username())));
-   }
-    
+    		      views.html.index.render(Requete.all(), requeteForm,User.findByEmail(request().username()),BookMarks.findByUser(request().username()))); }    
     
     public static Result login() {
         return ok(

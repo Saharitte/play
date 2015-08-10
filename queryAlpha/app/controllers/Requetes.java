@@ -1,5 +1,6 @@
 package controllers;
 
+import models.BookMarks;
 import models.Requete;
 import models.User;
 import play.data.Form;
@@ -18,8 +19,8 @@ public class Requetes extends Controller {
 		  Form<Requete> filledForm = requeteForm.bindFromRequest();
 		  if(filledForm.hasErrors()) {
 		    return badRequest(
-		      views.html.index.render(Requete.all(), filledForm,User.findByEmail(request().username()))
-		    );
+	    		      views.html.index.render(Requete.all(), requeteForm,User.findByEmail(request().username()),BookMarks.findByUser(request().username())));  
+
 		  } else {
 		    Requete.create(filledForm.get(),request().username());
 		    return redirect("requetes");  
@@ -36,11 +37,11 @@ public class Requetes extends Controller {
     
     public static Result requetes() {
     	  return ok(
-    			  views.html.index.render(Requete.all(), requeteForm,  User.findByEmail(request().username())));
-   }
+    		      views.html.index.render(Requete.all(), requeteForm,User.findByEmail(request().username()),BookMarks.findByUser(request().username())));  
+
   
     
-  
+    }
  
     
 

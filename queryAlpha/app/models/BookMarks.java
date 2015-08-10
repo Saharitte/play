@@ -7,12 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Query;
+import javax.persistence.Table;
 import javax.persistence.TypedQuery;
 
 import play.db.jpa.JPA;
 
 @Entity
-@NamedQuery(name = "findBMByUser", query = "select r from BookMarks r where r.user.name=:name")
+@Table(name="BookMarks")
+
+@NamedQuery(name = "findBMByUser", query = "select r from BookMarks r where r.user.email=:email")
 
 public class BookMarks {
 
@@ -72,11 +75,11 @@ public class BookMarks {
 	return	JPA.em().find(BookMarks.class, id);
 	}
 
-	public static List<BookMarks> findByUser(String name) {
+	public static List<BookMarks> findByUser(String email) {
 		// TODO Auto-generated method stub
 		TypedQuery<BookMarks> query = JPA.em().createNamedQuery(
 				"findBMByUser", BookMarks.class);
-		query.setParameter("name",name);
+		query.setParameter("email",email);
 
 		return query.getResultList();   }
 	

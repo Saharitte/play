@@ -3,6 +3,7 @@ package models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +24,8 @@ public class Requete {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(length = 5000)
 	private String corps;
     private Date date= new Date();
     
@@ -110,7 +113,7 @@ public class Requete {
 
 		}
 
-		public Requete findById(Long id) {
+		public static Requete findById(Long id) {
 			// TODO Auto-generated method stub
 		return	JPA.em().find(Requete.class, id);
 		}
