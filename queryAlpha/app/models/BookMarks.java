@@ -66,9 +66,13 @@ public class BookMarks {
         JPA.em().persist(t);
 
 	}
-	public void delete(Long id) {
+	public static void delete(Long idQuery,Long idUser) {
 		// TODO Auto-generated method stub
-	 JPA.em().remove(JPA.em().find(BookMarks.class, id));
+		
+		BookMarks b =(BookMarks) JPA.em().createQuery("select r from BookMarks r where  r.user.idUser=:idUser and r.requete.idQuery=:idQuery").setParameter("idUser", idUser).setParameter("idQuery", idQuery).getSingleResult();
+	
+		
+	 JPA.em().remove(b);
 
 	}
 

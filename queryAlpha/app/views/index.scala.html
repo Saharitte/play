@@ -16,10 +16,10 @@
 @helper.form(action = routes.Requetes.newRequetes()) {
     
   
-   @textarea(field = requeteForm("corps"), args = 'rows -> 10, 'cols -> 50)
+   @textarea(field = requeteForm("corps"), args = 'rows -> 10, 'cols -> 50,'_label -> "Body")
    
    
-       <button type="submit" type="button" class="btn btn-default" >Add</button>       <button   class="btn btn-default" name="execute" >Execute</button>
+       <button type="submit" type="button" class="btn btn-default" ><p class="fa fa-send"> Execute</p></button>  
        
     
     

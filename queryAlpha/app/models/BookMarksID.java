@@ -5,40 +5,41 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class BookMarksID  implements Serializable {
+public class BookMarksID implements Serializable {
 
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private Long idUser;
 	private Long idQuery;
-	
-	
-	
-	
-	
+
 	public BookMarksID() {
 		super();
 	}
+
 	public BookMarksID(Long idUser, Long idQuery) {
 		super();
 		this.idUser = idUser;
 		this.idQuery = idQuery;
 	}
+
 	public Long getIdUser() {
 		return idUser;
 	}
+
 	public void setIdUser(Long idUser) {
 		this.idUser = idUser;
 	}
+
 	public Long getIdQuery() {
 		return idQuery;
 	}
+
 	public void setIdQuery(Long idQuery) {
 		this.idQuery = idQuery;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -47,6 +48,7 @@ public class BookMarksID  implements Serializable {
 		result = prime * result + ((idUser == null) ? 0 : idUser.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -68,7 +70,5 @@ public class BookMarksID  implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
+
 }

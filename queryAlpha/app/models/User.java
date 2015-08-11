@@ -59,7 +59,11 @@ public class User  implements Serializable   {
 		}
 		
     
-    
+    public static User findByID(Long id) {
+    	  
+    			return JPA.em().find(User.class, id)
+    		            ;}
+    		
     
     
     

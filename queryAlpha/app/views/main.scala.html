@@ -29,9 +29,10 @@
  <header>
             <a href="@routes.Application.index" id="logo"><span>Query</span>List</a>
             <dl id="user">
-        <dt>@user.getName </dt>
+        <dt>                            <p class="fa fa-user"> @user.getName </p> 
+   </dt>
         <dd>
-            <a href="@routes.Application.logout()">Logout</a>
+            <a href="@routes.Application.logout()"><p class="fa fa-sign-out"> Logout</p></a>
         </dd>
     </dl>
         </header>
@@ -48,7 +49,7 @@
 
  
                 <div class="col-md-9">
-                    <div class="panel panel-default">
+                    <div class="panel panel-info">
                         <div class="panel-heading">
                             
                             <div class="pull-left">
@@ -80,11 +81,11 @@
                         <div class="panel-body">
                             <!-- Nav tabs -->
                             <ul class="nav nav-pills">
-                                <li class="active"><a href="#myQueries" data-toggle="tab">My Queries</a>
+                                <li class="active"><a href="#myQueries" data-toggle="tab"><p class="fa fa-list-ul">  My Queries</p></a>
                                 </li>
-                                <li><a href="#Bookmarks" data-toggle="tab">Bookmarks</a>
+                                <li><a href="#Bookmarks" data-toggle="tab"> <p class="fa fa-bookmark"> Bookmarks</p></a>
                                 </li>
-                                <li><a href="#History" data-toggle="tab">History</a>
+                                <li><a href="#History" data-toggle="tab"><p class="fa fa-history"> History</p></a>
                                 </li>
                                 
                             </ul>
@@ -98,14 +99,15 @@
                             
                           <div class="alert alert-success ">
                         
+            
                              
-             @form(routes.Bookmarkss.newBookMarks(r.getId())) {
-   <button type="submit" class="btn btn-danger btn-circle"><i class="fa fa-heart"></i>
-                             </button>                }
+                                @form(routes.Bookmarkss.newBookMarks(r.getId())) {
+                          
+                            <button type="submit" class="btn btn-danger btn-circle"><i class="fa fa-heart"></i>
+                             </button>
+                             }
                              
-                             
-                             
-                           <a href="@routes.Bookmarkss.newBookMarks(r.getId())"    class="alert-link"> @r.getCorps()</a>.
+                         @r.getCorps()
                             
                           
  </div>  
@@ -118,9 +120,12 @@
                             
                            
                           <div class="alert alert-success ">
- <button type="button" class="btn btn-warning btn-circle"><i class="fa fa-times"></i>
+                           @form(routes.Bookmarkss.deleteBookMarks(b.getRequete.getId())) {
+                
+ <button type="submit" class="btn btn-warning btn-circle"><i class="fa fa-times"></i>
                             </button>                          
-                           <a href="#" class="alert-link"> @b.getRequete.getCorps()</a>.
+                            }
+                            @b.getRequete.getCorps()
                             </div>  
                             
                          
@@ -134,9 +139,12 @@
  
                           
                           <div class="alert alert-success ">
-                            <button type="button" class="btn btn-danger btn-circle"><i class="fa fa-heart"></i>
+                                                     @form(routes.Bookmarkss.newBookMarks(q.getId())) {
+                          
+                            <button type="submit" class="btn btn-danger btn-circle"><i class="fa fa-heart"></i>
                              </button>
-                           <a href="@routes.Bookmarkss.newBookMarks(q.getId())"    class="alert-link"> @q.getCorps()</a>.
+                             }
+                          @q.getCorps()
                           
                             </div>         
                          
