@@ -1,4 +1,4 @@
-@(requetes: List[Requete], requeteForm: Form[Requete], user:User, bookmarkss:List[BookMarks])
+@(requetes: List[Requete], requeteForm: Form[Requete], user:User, bookmarkss:List[BookMarks],queryHist: List[Requete])
 @import helper._
 
 
@@ -6,7 +6,7 @@
 
                         
     
-    @main(requetes,user,bookmarkss) {
+    @main(requetes,user,bookmarkss,queryHist) {
   
   
 
@@ -16,7 +16,7 @@
 @helper.form(action = routes.Requetes.newRequetes()) {
     
   
-   @textarea(field = requeteForm("Query"), args = 'rows -> 10, 'cols -> 50)
+   @textarea(field = requeteForm("corps"), args = 'rows -> 10, 'cols -> 50)
    
    
        <button type="submit" type="button" class="btn btn-default" >Add</button>       <button   class="btn btn-default" name="execute" >Execute</button>

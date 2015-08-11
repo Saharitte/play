@@ -4,11 +4,11 @@ import java.util.List;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Query;
 import javax.persistence.Table;
-import javax.persistence.TypedQuery;
 
 import play.db.jpa.JPA;
 
@@ -22,9 +22,11 @@ public class BookMarks {
 	@EmbeddedId
 	private BookMarksID bookMarksID;
 	@ManyToOne
+	@JoinColumn(name = "idQuery", referencedColumnName = "idQuery", insertable = false, updatable = false)
+
 	private Requete requete;
 	@ManyToOne
-
+	@JoinColumn(name = "idUser", referencedColumnName = "idUser", insertable = false, updatable = false)
 	private User user;
 	
 	
@@ -75,17 +77,20 @@ public class BookMarks {
 	return	JPA.em().find(BookMarks.class, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<BookMarks> findByUser(String email) {
 		// TODO Auto-generated method stub
-		TypedQuery<BookMarks> query = JPA.em().createNamedQuery(
-				"findBMByUser", BookMarks.class);
-		query.setParameter("email",email);
 
-		return query.getResultList();   }
+		 
+				return JPA.em()
+			            .createQuery("select r from BookMarks r where  r.user.email=:email").setParameter("email", "test@test.com").getResultList();
+				}
+				
 	
 	
 	
-	 public static List<Requete> all() {
+	 @SuppressWarnings("unchecked")
+	public static List<Requete> all() {
 		 
 		 Query query =  JPA.em().createQuery("SELECT e FROM BookMarks e");
 		    return query.getResultList();

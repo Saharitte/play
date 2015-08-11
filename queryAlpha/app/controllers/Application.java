@@ -15,8 +15,7 @@ public class Application extends Controller {
 	static Form<Requete> requeteForm = Form.form(Requete.class);
 
 	  public static Result index() {
-    	  return ok(
-    		      views.html.index.render(Requete.all(), requeteForm,User.findByEmail(request().username()),BookMarks.findByUser(request().username()))); }    
+    	  return ok(views.html.index.render(Requete.findByUserID(User.findByEmail(request().username()).getId()), requeteForm, User.findByEmail(request().username()), BookMarks.findByUser(request().username()),Requete.all()));}
     
     public static Result login() {
         return ok(

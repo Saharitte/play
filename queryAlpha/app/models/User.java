@@ -12,7 +12,6 @@ import play.db.jpa.JPA;
  * User entity managed by JPA
  */
 @Entity 
-@Table(name="account")
 @NamedQueries({@NamedQuery(name = "findByCredentials", query = "select a from User a where a.email =:email AND a.password =:password") ,
 	@NamedQuery(name = "findByEmail", query = "select a from User a where a.email =:email"),
 	@NamedQuery(name = "findByName", query = "select a from User a where a.name =:name")})
@@ -27,7 +26,7 @@ public class User  implements Serializable   {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+    private Long idUser;
 
     @Constraints.Required
     private String name;
@@ -45,7 +44,8 @@ public class User  implements Serializable   {
     /**
      * Retrieve all users.
      */
-    public static List<User> findAll() {
+    @SuppressWarnings("unchecked")
+	public static List<User> findAll() {
    	 Query query =  JPA.em().createQuery("SELECT a FROM account a");
 	    return query.getResultList();	}
 
@@ -53,11 +53,14 @@ public class User  implements Serializable   {
      * Retrieve a User from email.
      */
     public static User findByEmail(String email) {
-    	TypedQuery<User> query = JPA.em().createNamedQuery(
-				"findByEmail", User.class);
-		query.setParameter("email", "test@test.com");
-
-		return query.getSingleResult();    }
+  
+		return (User) JPA.em()
+	            .createQuery("select r from User r where r.email =:email").setParameter("email", "test@test.com").getSingleResult();
+		}
+		
+    
+    
+    
     
     
     /**
@@ -122,11 +125,11 @@ public class User  implements Serializable   {
 	}
 
 	public Long getId() {
-		return id;
+		return idUser;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.idUser = id;
 	}
 
 }

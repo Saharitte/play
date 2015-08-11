@@ -23,7 +23,7 @@ public class Requete {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	private Long idQuery;
 	
 	@Column(length = 5000)
 	private String corps;
@@ -51,11 +51,11 @@ public class Requete {
 	}
 
 	public Long getId() {
-		return id;
+		return idQuery;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.idQuery = id;
 	}
 
 	public String getCorps() {
@@ -87,9 +87,8 @@ public class Requete {
 	
 	 public static List<Requete> all() {
 		 
-		 Query query =  JPA.em().createQuery("SELECT e FROM Requete e");
-		    return query.getResultList();
-		    
+	return JPA.em().createQuery("from Requete r").getResultList();
+
 		    
 	 }
 		
@@ -118,13 +117,24 @@ public class Requete {
 		return	JPA.em().find(Requete.class, id);
 		}
 
-		public static List<Requete> findByUser(String name) {
+		public static List<Requete> findByUser(String email) {
 			// TODO Auto-generated method stub
 			TypedQuery<Requete> query = JPA.em().createNamedQuery(
 					"findByUser", Requete.class);
-			query.setParameter("email",name);
+			
+			query.setParameter("email","test@test.com");
 
 			return query.getResultList();   }
+		
+
+		public static List<Requete> findByUserID(Long id) {
+			// TODO Auto-generated method stub
+		
+		
+	  return JPA.em()
+	            .createQuery("select r from Requete r where r.user.idUser =:id").setParameter("id", id).getResultList();
+		}
+		
 
 		public static boolean isOwner(Long requete, String username) {
 			// TODO Auto-generated method stub
@@ -132,7 +142,7 @@ public class Requete {
 			Boolean b=false;
 			for (Requete f :findByUser(username))
 {
-	if (f.id==requete) b= true;
+	if (f.idQuery==requete) b= true;
 	else b= false;
 }
 			return b;
