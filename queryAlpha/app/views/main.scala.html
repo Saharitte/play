@@ -1,177 +1,246 @@
-@(requetes: List[Requete],user:User, bookmarkss:List[BookMarks],queryHist: List[Requete])(body: Html)
-
+@(requetes:List[Requete],user:User,bookmarkss:List[BookMarks],queryHist:List[Requete])(body: Html) 
 @import helper._
 
 <html>
-    <head>
-        <title>Query</title>
-        
- <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
-       
-       
- <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("dist/css/skins/_all-skins.min.css")">
-    
-   <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("plugins/morris/morris.css")">
-    
-    
-    
-<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-       
+<head>
+<title>Query</title>
+
+<link rel="stylesheet" type="text/css" media="screen"
+	href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+
+
+<link rel="stylesheet" type="text/css" media="screen"
+	href="@routes.Assets.at("dist/css/skins/_all-skins.min.css")">
+
+<link rel="stylesheet" type="text/css" media="screen"
+	href="@routes.Assets.at("plugins/morris/morris.css")">
+
+
+
+<link rel="stylesheet" type="text/css" media="screen"
+	href="@routes.Assets.at("stylesheets/main.css")">
+
 <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-1.7.1.js")"></script>
 
- <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <!-- Ionicons 2.0.0 -->
-    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-   
-      </head>
-   <body>
- <header>
-            <a href="@routes.Application.index" id="logo"><span>Query</span>List</a>
-            <dl id="user">
-        <dt>                            <p class="fa fa-user"> @user.getName </p> 
-   </dt>
-        <dd>
-            <a href="@routes.Application.logout()"><p class="fa fa-sign-out"> Logout</p></a>
-        </dd>
-    </dl>
-        </header>
-        
-        <nav>
-            <h4 class="dashboard"><a href="#/">Dashboard</a></h4>
-            <ul class="nav nav-pills nav-stacked" >
-      
-            </ul>
-        </nav>
-        <section class="container">
-        
+<script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css" />
+<!-- Ionicons 2.0.0 -->
+<link
+	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+	rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+	<header>
+		<a href="@routes.Application.index" id="logo"><span>Query</span>List</a>
+		<dl id="user">
+			<dt>
+				<p class="fa fa-user">@user.getName</p>
+			</dt>
+			<dd>
+				<a href="@routes.Application.logout()"><p class="fa fa-sign-out">
+						Logout</p></a>
+			</dd>
+		</dl>
+	</header>
+
+	<nav>
+		<h4 class="dashboard">
+			<a href="#/">Dashboard</a>
+		</h4>
+		<ul class="nav nav-pills nav-stacked">
+
+		</ul>
+	</nav>
+	<section class="container">
 
 
- 
-                <div class="col-md-9">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            
-                            <div class="pull-left">
-                                   <button type="button" class="btn btn-default" >Show Tables and partitions</button>       <button type="button" class="btn btn-default" >Show Table schemas</button>                         
-                                
-                            </div>
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div id="morris-area-chart"></div>
-                         
-    
-    @body
-                            
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                   
-                   
-                </div>
-             
-              
-                <!-- /.col-lg-6 -->
-                <div class="col-md-9">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-pills">
-                                <li class="active"><a href="#myQueries" data-toggle="tab"><p class="fa fa-list-ul">  My Queries</p></a>
-                                </li>
-                                <li><a href="#Bookmarks" data-toggle="tab"> <p class="fa fa-bookmark"> Bookmarks</p></a>
-                                </li>
-                                <li><a href="#History" data-toggle="tab"><p class="fa fa-history"> History</p></a>
-                                </li>
-                                
-                            </ul>
 
-                            <!-- Tab panes -->
-                        <div class="tab-content">
-                                <div class="tab-pane fade in active" id="myQueries">
-                                    <p> 
 
-        @for(r <- requetes) {
-                            
-                          <div class="alert alert-success ">
-                        
-            
-                             
-                                @form(routes.Bookmarkss.newBookMarks(r.getId())) {
-                          
-                            <button type="submit" class="btn btn-danger btn-circle"><i class="fa fa-heart"></i>
-                             </button>
-                             }
-                             
-                         @r.getCorps()
-                            
-                          
- </div>  
-                            
-                      }
-                                </div>
-                                <div class="tab-pane fade" id="Bookmarks">
-                            
-                                                @for(b <- bookmarkss){
-                            
-                           
-                          <div class="alert alert-success ">
-                           @form(routes.Bookmarkss.deleteBookMarks(b.getRequete.getId())) {
-                
- <button type="submit" class="btn btn-warning btn-circle"><i class="fa fa-times"></i>
-                            </button>                          
-                            }
-                            @b.getRequete.getCorps()
-                            </div>  
-                            
-                         
-                        }
-                                  
-                                </div>
-                                <div class="tab-pane fade" id="History">
-                                   
-           
-                    @for(q <- queryHist){
- 
-                          
-                          <div class="alert alert-success ">
-                                                     @form(routes.Bookmarkss.newBookMarks(q.getId())) {
-                          
-                            <button type="submit" class="btn btn-danger btn-circle"><i class="fa fa-heart"></i>
-                             </button>
-                             }
-                          @q.getCorps()
-                          
-                            </div>         
-                         
-                        }
-         
-   </div>
-                               
-                            </div>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-6 -->
+		<div class="col-md-9">
+			<div class="panel panel-info">
+				<div class="panel-heading">
 
-</section>           
-             <!-- jQuery -->
-    <script src="@routes.Assets.at("bower_components/jquery/dist/jquery.min.js")"></script>
+					<div class="pull-left">
+						<button type="button" class="btn btn-default">Show Tables
+							and partitions</button>
+						<button type="button" class="btn btn-default">Show Table
+							schemas</button>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="@routes.Assets.at("bower_components/bootstrap/dist/js/bootstrap.min.js")"></script>
+					</div>
+				</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+					<div id="morris-area-chart"></div>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="@routes.Assets.at("bower_components/metisMenu/dist/metisMenu.min.js")"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="@routes.Assets.at("dist/js/sb-admin-2.js")"></script>
-        
-    </body>
+					@body
+
+				</div>
+				<!-- /.panel-body -->
+			</div>
+
+
+		</div>
+
+
+		<!-- /.col-lg-6 -->
+		<div class="col-md-9">
+			<div class="panel panel-default">
+				<div class="panel-heading"></div>
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+					<!-- Nav tabs -->
+					<ul class="nav nav-pills">
+						<li class="active"><a href="#myQueries" data-toggle="tab"><p
+									class="fa fa-list-ul"> My Queries</p></a></li>
+						<li><a href="#Bookmarks" data-toggle="tab">
+								<p class="fa fa-bookmark"> Bookmarks</p>
+						</a></li>
+						<li><a href="#History" data-toggle="tab"><p
+									class="fa fa-history"> History</p></a></li>
+
+					</ul>
+
+
+
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div class="tab-pane fade in active" id="myQueries">
+
+
+
+
+							<br>
+							<table class="table table-hover">
+
+								<tbody>
+									<p>@for(r <- requetes) {
+									<tr class="info">
+
+
+
+										<td>
+										
+								
+										@form(routes.Bookmarkss.newBookMarks(r.getId())) {
+
+											<button type="button" class="btn btn-default btn-circle">
+												<i class="fa fa-bookmark"></i>
+											</button> }
+											
+										
+										</td>
+
+										<td>@r.getCorps()</td>
+
+
+									</tr>
+									}
+
+								</tbody>
+							</table>
+
+
+						</div>
+
+
+
+
+
+
+
+
+
+
+
+						<div class="tab-pane fade" id="Bookmarks">
+
+
+							<br>
+							<table class="table table-hover">
+
+								<tbody>
+
+									@for(b <- bookmarkss){
+
+
+									<tr class="info">
+
+										<td>
+
+
+											<button type="button" class="btn btn-default btn-circle">
+												<i class="fa fa-times"></i>
+											</button> 
+										</td>
+
+										<td>@b.getRequete().getCorps()</td>
+
+
+									</tr>
+							
+}
+								</tbody>
+							</table>
+
+
+						</div>
+
+
+
+						<div class="tab-pane fade" id="History">
+
+
+
+
+							<br>
+							<table class="table table-hover">
+
+								<tbody>
+									<p>@for(rh <- queryHist) {
+									<tr class="info">
+
+										<td>@form(routes.Bookmarkss.newBookMarks(rh.getId())) {
+
+											<button type="button" class="btn btn-default btn-circle">
+												<i class="fa fa-bookmark"></i>
+											</button> }
+										</td>
+
+										<td>@rh.getCorps()</td>
+
+
+									</tr>
+									}
+
+								</tbody>
+							</table>
+
+						</div>
+
+					</div>
+				</div>
+				<!-- /.panel-body -->
+			</div>
+			<!-- /.panel -->
+		</div>
+		<!-- /.col-lg-6 -->
+
+	</section>
+	<!-- jQuery -->
+	<script src="@routes.Assets.at("bower_components/jquery/dist/jquery.min.js")"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="@routes.Assets.at("bower_components/bootstrap/dist/js/bootstrap.min.js")"></script>
+
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="@routes.Assets.at("bower_components/metisMenu/dist/metisMenu.min.js")"></script>
+
+	<!-- Custom Theme JavaScript -->
+	<script src="@routes.Assets.at("dist/js/sb-admin-2.js")"></script>
+
+</body>
 </html>

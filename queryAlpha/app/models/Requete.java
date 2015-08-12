@@ -136,6 +136,24 @@ public class Requete {
 		}
 		
 
+		
+		
+		
+		public static boolean ifBookMarked (Long idQuery,Long idUser) {
+			// TODO Auto-generated method stub
+			
+			
+			if (BookMarks.find(idQuery, idUser)!=null){
+				return true;
+			}else
+			
+			return false;
+
+		}
+		
+		
+		
+		
 		public static boolean isOwner(Long requete, String username) {
 			// TODO Auto-generated method stub
 			

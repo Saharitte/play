@@ -75,13 +75,25 @@ public class BookMarks {
 	 JPA.em().remove(b);
 
 	}
+	
+	
+	
+	public static BookMarks find(Long idQuery,Long idUser) {
+		// TODO Auto-generated method stub
+		
+		return  (BookMarks) JPA.em().createQuery("select r from BookMarks r where  r.user.idUser=:idUser and r.requete.idQuery=:idQuery").setParameter("idUser", idUser).setParameter("idQuery", idQuery).getSingleResult();
+	
+		
+
+	}
+	
+	
 
 	public BookMarks findById(Long id) {
 		// TODO Auto-generated method stub
 	return	JPA.em().find(BookMarks.class, id);
 	}
 
-	@SuppressWarnings("unchecked")
 	public static List<BookMarks> findByUser(String email) {
 		// TODO Auto-generated method stub
 
@@ -93,7 +105,6 @@ public class BookMarks {
 	
 	
 	
-	 @SuppressWarnings("unchecked")
 	public static List<Requete> all() {
 		 
 		 Query query =  JPA.em().createQuery("SELECT e FROM BookMarks e");
