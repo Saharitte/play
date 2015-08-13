@@ -1,4 +1,4 @@
-@(requetes:List[Requete],user:User,bookmarkss:List[BookMarks],queryHist:List[Requete])(body: Html) 
+@(requetes:List[Requete],user:User,bookmarkss:List[BookMarks],queryHist:List[Requete])(body:Html) 
 @import helper._
 
 <html>
@@ -117,21 +117,16 @@
 							<table class="table table-hover">
 
 								<tbody>
-									<p>@for(r <- requetes) {
-									<tr class="info">
+									@for(r <- requetes) {
+									<tr >
+
+										<td>@form(routes.Bookmarkss.newBookMarks(r.getId())) {
+
+  <button type="submit" class="btn btn-circle"><i class="fa fa-bookmark"></i>
+                             </button>
+}
 
 
-
-										<td>
-										
-								
-										@form(routes.Bookmarkss.newBookMarks(r.getId())) {
-
-											<button type="button" class="btn btn-default btn-circle">
-												<i class="fa fa-bookmark"></i>
-											</button> }
-											
-										
 										</td>
 
 										<td>@r.getCorps()</td>
@@ -167,22 +162,28 @@
 									@for(b <- bookmarkss){
 
 
-									<tr class="info">
+									<tr>
 
 										<td>
 
-
-											<button type="button" class="btn btn-default btn-circle">
-												<i class="fa fa-times"></i>
-											</button> 
+										
+										
+							<td>@form(routes.Bookmarkss.deleteBookMarks(b.getRequete().getId())) {			
+										
+								<button type="submit" class="btn btn-circle"><i class="fa fa-times"></i>
+                             </button>		
+										
+										
+										}
+										
 										</td>
 
 										<td>@b.getRequete().getCorps()</td>
 
 
 									</tr>
-							
-}
+
+									}
 								</tbody>
 							</table>
 
@@ -195,40 +196,49 @@
 
 
 
-
-							<br>
-							<table class="table table-hover">
-
-								<tbody>
-									<p>@for(rh <- queryHist) {
-									<tr class="info">
-
-										<td>@form(routes.Bookmarkss.newBookMarks(rh.getId())) {
-
-											<button type="button" class="btn btn-default btn-circle">
-												<i class="fa fa-bookmark"></i>
-											</button> }
-										</td>
-
-										<td>@rh.getCorps()</td>
+							<div class="tab-pane fade in active" id="myQueries">
 
 
-									</tr>
-									}
 
-								</tbody>
-							</table>
+								<br>
+								<table class="table table-hover">
+
+									<tbody>
+									@for(qh <- queryHist) {
+										<tr>
+
+
+
+											<td>@form(routes.Bookmarkss.newBookMarks(qh.getId())) {
+<button type="submit" class="btn  btn-circle"><i class="fa fa-bookmark"></i>
+                             </button>														}
+
+
+
+
+
+											</td>
+
+											<td>@qh.getCorps()</td>
+
+
+										</tr>
+										}
+
+									</tbody>
+								</table>
+
+
+
+							</div>
 
 						</div>
-
 					</div>
+					<!-- /.panel-body -->
 				</div>
-				<!-- /.panel-body -->
+				<!-- /.panel -->
 			</div>
-			<!-- /.panel -->
-		</div>
-		<!-- /.col-lg-6 -->
-
+			<!-- /.col-lg-6 -->
 	</section>
 	<!-- jQuery -->
 	<script src="@routes.Assets.at("bower_components/jquery/dist/jquery.min.js")"></script>

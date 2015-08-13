@@ -104,6 +104,9 @@ public class Requete {
 		public static void create(Requete t, String owner) {
 			// TODO Auto-generated method stub
 	        t.setUser(User.findByEmail(owner));
+	        
+	        
+	        
 	        JPA.em().persist(t);
 		}
 		public void delete(Long id) {

@@ -2,13 +2,7 @@ package models;
 
 import java.util.List;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Query;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import play.db.jpa.JPA;
 
@@ -21,9 +15,8 @@ public class BookMarks {
 
 	@EmbeddedId
 	private BookMarksID bookMarksID;
-	@ManyToOne
 	@JoinColumn(name = "idQuery", referencedColumnName = "idQuery", insertable = false, updatable = false)
-
+	@ManyToOne
 	private Requete requete;
 	@ManyToOne
 	@JoinColumn(name = "idUser", referencedColumnName = "idUser", insertable = false, updatable = false)
@@ -68,11 +61,10 @@ public class BookMarks {
 	}
 	public static void delete(Long idQuery,Long idUser) {
 		// TODO Auto-generated method stub
+
 		
-		BookMarks b =(BookMarks) JPA.em().createQuery("select r from BookMarks r where  r.user.idUser=:idUser and r.requete.idQuery=:idQuery").setParameter("idUser", idUser).setParameter("idQuery", idQuery).getSingleResult();
-	
-		
-	 JPA.em().remove(b);
+    JPA.em().remove(JPA.em().find(BookMarks.class, new BookMarksID(idUser,idQuery)));
+
 
 	}
 	
