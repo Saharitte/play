@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,9 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Query;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 
+import play.data.validation.Constraints.Required;
 import play.db.jpa.JPA;
 
 
@@ -26,13 +29,16 @@ public class Requete {
 	private Long idQuery;
 	
 	@Column(length = 5000)
+	
 	private String corps;
+	
+	@Temporal(TemporalType.TIMESTAMP)
     private Date date= new Date();
     
     @ManyToOne
     private User user ;
     
-    
+ 
 	@OneToMany(mappedBy="requete")
 	private List<BookMarks> bookMarks;
 
@@ -171,7 +177,14 @@ public class Requete {
 			
 		}
 
-	
+		public Long getIdQuery() {
+			return idQuery;
+		}
+
+		public void setIdQuery(Long idQuery) {
+			this.idQuery = idQuery;
+		}
+
 		}
 
 

@@ -1,34 +1,69 @@
-@(requetes: List[Requete], requeteForm: Form[Requete], user:User, bookmarkss:List[BookMarks],queryHist: List[Requete])
+@(requetes: List[Requete], requeteForm: Form[Requete], user:User,bookmarkss:List[BookMarks],queryHist: List[Requete]) 
 @import helper._
 
 
-    
+@main(requetes,user,bookmarkss,queryHist) {
 
-                        
-    
-    @main(requetes,user,bookmarkss,queryHist) {
-  
-  
 
-    
- @(requeteForm: Form[Requete])
+<div class="panel panel-info">
+	<div class="panel-heading">
 
-@helper.form(action = routes.Requetes.newRequetes()) {
-    
-  
-   @textarea(field = requeteForm("corps"), args = 'rows -> 10, 'cols -> 50,'_label -> "Body")
-   
-   
-       <button type="submit" type="button" class="btn btn-default" ><p class="fa fa-send"> Execute</p></button>  
-       
-    
-    
+		<div class="pull-left">
+			<button type="button" class="btn btn-default">Show Tables
+				and partitions</button>
+			<button type="button" class="btn btn-default">Show Table
+				schemas</button>
+
+		</div>
+
+
+	</div>
+	<br>
+	<!-- /.panel-heading -->
+	<div class="panel-body">
+		<div class="box">
+			<div class="box-header"></div>
+			<div class="box-body">
+				<a class="btn btn-app"> <i class="fa fa-copy"></i> copy
+				</a> <a class="btn btn-app"> <i class="fa fa-play"></i> show result
+				</a> <a class="btn btn-app"> <i class="fa fa-bookmark"></i> Bookmark
+				</a>
+
+
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+
+		<div>
+
+
+
+			@helper.form(action = routes.Requetes.newRequetes()) {
+
+			@helper.textarea(requeteForm("corps"), args = 'rows -> 10, 'cols ->50)
+
+
+
+			<button type="submit" type="button" class="btn btn-default">
+				<p class="fa fa-send">Execute</p>
+			</button>
+
+
+
+			}
+		</div>
+		<!-- /.panel-body -->
+	</div>
+
+
+
+
+</div>
+
+
+
+
+
 }
-    
-    
-                            
-                    
 
-}               
-                            
-                        
