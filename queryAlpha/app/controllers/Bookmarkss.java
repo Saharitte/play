@@ -2,14 +2,12 @@
 package controllers;
 
 
-import static play.data.Form.form;
 
 import models.BookMarks;
 import models.BookMarksID;
 import models.Requete;
 import models.User;
-import play.data.DynamicForm;
-import play.data.Form;
+
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;

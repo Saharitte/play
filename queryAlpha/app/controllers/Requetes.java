@@ -1,6 +1,5 @@
 package controllers;
 
-import static play.data.Form.form;
 
 import models.BookMarks;
 import models.Requete;
