@@ -101,7 +101,13 @@
 									@for(r <- requetes) {
 									<tr >
 
-										<td>@form(routes.Bookmarkss.newBookMarks(r.getId())) {
+										
+
+										<td>@r.getCorps()</td>
+
+
+
+<td>@form(routes.Bookmarkss.newBookMarks(r.getId())) {
 
   <button type="submit" class="btn btn-circle"><i class="fa fa-bookmark"></i>
                              </button>
@@ -109,9 +115,23 @@
 
 
 										</td>
+										
+										<td>
 
-										<td>@r.getCorps()</td>
 
+<!-- Button trigger modal -->
+<button type="button"  class="btn btn-circle" data-toggle="modal" data-target="#myModal">
+  <i class="fa fa-play"></i>
+</button>
+
+
+
+</td>
+<td>
+<button type="button"  class="btn btn-circle" >
+  <i class="fa  fa-copy"></i>
+</button>
+</td>
 
 									</tr>
 									}
@@ -212,5 +232,21 @@
 			
 			</div>
 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Result</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 }
 

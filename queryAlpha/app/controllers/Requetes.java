@@ -4,6 +4,7 @@ import org.apache.spark.sql.DataFrame;
 
 import models.BookMarks;
 import models.Requete;
+import models.ResultQuery;
 import models.User;
 import play.data.Form;
 import play.db.jpa.Transactional;
@@ -26,15 +27,28 @@ public class Requetes extends Controller {
 
 			//
 			long start = System.currentTimeMillis();
+			
 			DataFrame queryResult = Global.sqlContext.sql(filledForm.get().getCorps());
 			// The sql function on a SQLContext enables applications to run SQL queries
 			// programmatically and returns the result as a DataFrame.
 
 			long end = System.currentTimeMillis();
 			long executionTime = end - start;
+			
+			
 			queryResult.registerTempTable("result");
+           long resultSize= queryResult.count();
 
-			Requete.create(filledForm.get(), request().username());
+			Requete query=filledForm.get();
+			ResultQuery resultQuery= new ResultQuery("running", executionTime,  (byte) 867);
+			query.setResultQuery(resultQuery);
+			
+			// DataFrames can be saved as Parquet files, maintaining the schema information.
+			queryResult.write().parquet("query"+query.getId()+".parquet");
+			
+			
+			// Insert Query into Mysql database
+			Requete.create(query, request().username());
 			return redirect("requetes");
 		}
 
@@ -53,13 +67,13 @@ public class Requetes extends Controller {
 
 	}
 
-	// public static Result copyQuery(Long id) {
-	// Form<Requete> computerForm = Requete.class.fill(
-	// Requete.findById(id)
-	// );
-	// return ok(
-	// editForm.render(id, computerForm)
-	// );
-	// }
+	public static Result showResult(Long id) {
+		
+		DataFrame parquetFile = Global.sqlContext.read().parquet("query"+id+".parquet");
+	
+		
+		
+		return redirect("requetes");
+	}
 
 }

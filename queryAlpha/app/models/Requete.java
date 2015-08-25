@@ -19,39 +19,37 @@ import javax.persistence.TypedQuery;
 import play.data.validation.Constraints.Required;
 import play.db.jpa.JPA;
 
-
 @Entity
 @NamedQuery(name = "findByUser", query = "select r from Requete r where r.user.email=:email")
 public class Requete {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idQuery;
-	
+
 	@Column(length = 5000)
-	
+
 	private String corps;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
-    private Date date= new Date();
-    
-    @ManyToOne
-    private User user ;
-    
- 
-	@OneToMany(mappedBy="requete")
+	private Date date = new Date();
+
+	@ManyToOne
+	private User user;
+
+	@OneToMany(mappedBy = "requete")
 	private List<BookMarks> bookMarks;
 
-	
-	
-	
+	@Embedded
+	private ResultQuery resultQuery;
+
 	public Requete() {
 		super();
 	}
 
-	public Requete(String corps,  List<BookMarks> bookMarks,User user) {
+	public Requete(String corps, List<BookMarks> bookMarks, User user) {
 		super();
-	    this.user=user;
+		this.user = user;
 		this.corps = corps;
 		this.bookMarks = bookMarks;
 	}
@@ -87,106 +85,94 @@ public class Requete {
 	public void setBookMarks(List<BookMarks> bookMarks) {
 		this.bookMarks = bookMarks;
 	}
-    
 
-	
-	
-	 public static List<Requete> all() {
-		 
-	return JPA.em().createQuery("from Requete r").getResultList();
+	public static List<Requete> all() {
 
-		    
-	 }
-		
-		public User getUser() {
-			return user;
-		}
+		return JPA.em().createQuery("from Requete r").getResultList();
 
-		public void setUser(User user) {
-			this.user = user;
-		}
-	
+	}
 
-		public static void create(Requete t, String owner) {
-			// TODO Auto-generated method stub
-	        t.setUser(User.findByEmail(owner));
-	        
-	        
-	        
-	        JPA.em().persist(t);
-		}
-		public void delete(Long id) {
-			// TODO Auto-generated method stub
-		 JPA.em().remove(JPA.em().find(Requete.class, id));
+	public User getUser() {
+		return user;
+	}
 
-		}
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-		public static Requete findById(Long id) {
-			// TODO Auto-generated method stub
-		return	JPA.em().find(Requete.class, id);
-		}
+	public static void create(Requete t, String owner) {
+		// TODO Auto-generated method stub
+		t.setUser(User.findByEmail(owner));
 
-		public static List<Requete> findByUser(String email) {
-			// TODO Auto-generated method stub
-			TypedQuery<Requete> query = JPA.em().createNamedQuery(
-					"findByUser", Requete.class);
-			
-			query.setParameter("email","test@test.com");
+		JPA.em().persist(t);
+	}
 
-			return query.getResultList();   }
-		
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		JPA.em().remove(JPA.em().find(Requete.class, id));
 
-		public static List<Requete> findByUserID(Long id) {
-			// TODO Auto-generated method stub
-		
-		
-	  return JPA.em()
-	            .createQuery("select r from Requete r where r.user.idUser =:id").setParameter("id", id).getResultList();
-		}
-		
+	}
 
-		
-		
-		
-		public static boolean ifBookMarked (Long idQuery,Long idUser) {
-			// TODO Auto-generated method stub
-			
-			
-			if (BookMarks.find(idQuery, idUser)!=null){
-				return true;
-			}else
-			
+	public static Requete findById(Long id) {
+		// TODO Auto-generated method stub
+		return JPA.em().find(Requete.class, id);
+	}
+
+	public static List<Requete> findByUser(String email) {
+		// TODO Auto-generated method stub
+		TypedQuery<Requete> query = JPA.em().createNamedQuery("findByUser", Requete.class);
+
+		query.setParameter("email", "test@test.com");
+
+		return query.getResultList();
+	}
+
+	public static List<Requete> findByUserID(Long id) {
+		// TODO Auto-generated method stub
+
+		return JPA.em().createQuery("select r from Requete r where r.user.idUser =:id").setParameter("id", id)
+				.getResultList();
+	}
+
+	public static boolean ifBookMarked(Long idQuery, Long idUser) {
+		// TODO Auto-generated method stub
+
+		if (BookMarks.find(idQuery, idUser) != null) {
+			return true;
+		} else
+
 			return false;
 
+	}
+
+	public static boolean isOwner(Long requete, String username) {
+		// TODO Auto-generated method stub
+
+		Boolean b = false;
+		for (Requete f : findByUser(username)) {
+			if (f.idQuery == requete)
+				b = true;
+			else
+				b = false;
 		}
-		
-		
-		
-		
-		public static boolean isOwner(Long requete, String username) {
-			// TODO Auto-generated method stub
-			
-			Boolean b=false;
-			for (Requete f :findByUser(username))
-{
-	if (f.idQuery==requete) b= true;
-	else b= false;
+		return b;
+
+	}
+
+	public Long getIdQuery() {
+		return idQuery;
+	}
+
+	public void setIdQuery(Long idQuery) {
+		this.idQuery = idQuery;
+	}
+
+	public ResultQuery getResultQuery() {
+		return resultQuery;
+	}
+
+	public void setResultQuery(ResultQuery resultQuery) {
+		this.resultQuery = resultQuery;
+	}
+
 }
-			return b;
-			
-			
-		}
-
-		public Long getIdQuery() {
-			return idQuery;
-		}
-
-		public void setIdQuery(Long idQuery) {
-			this.idQuery = idQuery;
-		}
-
-		}
-
-
-
-

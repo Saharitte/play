@@ -1,6 +1,8 @@
 package models;
 
+import javax.persistence.Embeddable;
 
+@Embeddable
 public class ResultQuery {
 
 	private String queryStatus;
@@ -11,6 +13,8 @@ public class ResultQuery {
 	public ResultQuery() {
 		super();
 	}
+	
+	
 	public ResultQuery( String status, Long responseTime, byte sizeResult) {
 		super();
 		this.queryStatus = status;
