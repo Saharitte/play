@@ -16,6 +16,9 @@ GET     /requetes                  controllers.Requetes.requetes()
 POST    /requetes                  controllers.Requetes.newRequetes
 
 
+#GET     /requetes/:body             controllers.Bookmarkss.copyQuery(body: string)
+
+
 #Book MArks
 
 POST     /requetes/:id             controllers.Bookmarkss.newBookMarks(id: Long)
